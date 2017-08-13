@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -12,6 +13,7 @@ import org.w3c.dom.Text;
 import java.text.NumberFormat;
 
 import static android.R.attr.id;
+import static com.example.android.justjava.R.id.whippedCreamBox;
 
 /**
  * This app displays an order form to order coffee.
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
     int quantity = 2;
     int price = 3;
+    int priceCream = 5;
+    int priceChocolate = 7;
 
     public void increment(View view)
     {
@@ -60,11 +64,28 @@ public class MainActivity extends AppCompatActivity {
      */
     private void displayPrice(int number) {
 
+        EditText editUserName = (EditText) findViewById(R.id.userName);
         CheckBox whippedCreamBox = (CheckBox) findViewById(R.id.whippedCreamBox);
+        CheckBox chocolateBox = (CheckBox) findViewById(R.id.chocolateBox);
+        String userName = String.valueOf(editUserName.getText());
         boolean doLikeCream = whippedCreamBox.isChecked();
+        boolean doLikeChocolate = chocolateBox.isChecked();
+        int price = number;
+        if(doLikeCream)
+        {
+            price+=priceCream;
+        }
+        if (doLikeChocolate)
+        {
+            price+=priceChocolate;
+        }
+
         TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        String order = NumberFormat.getCurrencyInstance().format(number) + "\nQuantity: "+ quantity
-                + "\nAdd whipped cream? " + doLikeCream
+        String order = NumberFormat.getCurrencyInstance().format(price)
+                + "\nHello " + userName + " your order is:"
+                + "\nQuantity: "+ quantity
+                + "\nAdd whipped cream? $" + priceCream + " " + doLikeCream
+                + "\nAdd chocolate? $" + priceChocolate + " " + doLikeChocolate
                 + "\nThank you";
         priceTextView.setText(order);
 
