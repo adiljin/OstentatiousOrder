@@ -91,7 +91,6 @@
                     android:layout_marginBottom="16dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="Price"
                     android:textAllCaps="true" />
 
                 <TextView
@@ -99,7 +98,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="$"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
 

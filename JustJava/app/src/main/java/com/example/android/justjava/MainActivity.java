@@ -1,5 +1,7 @@
 package com.example.android.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,7 @@ import org.w3c.dom.Text;
 import java.text.NumberFormat;
 
 import static android.R.attr.id;
+import static android.content.Intent.EXTRA_EMAIL;
 import static com.example.android.justjava.R.id.whippedCreamBox;
 
 /**
@@ -80,14 +83,21 @@ public class MainActivity extends AppCompatActivity {
             price+=priceChocolate;
         }
 
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        String order = NumberFormat.getCurrencyInstance().format(price)
-                + "\nHello " + userName + " your order is:"
+        //TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
+        String order = "Price is: $" + price
                 + "\nQuantity: "+ quantity
                 + "\nAdd whipped cream? $" + priceCream + " " + doLikeCream
-                + "\nAdd chocolate? $" + priceChocolate + " " + doLikeChocolate
-                + "\nThank you";
-        priceTextView.setText(order);
+                + "\nAdd chocolate? $" + priceChocolate + " " + doLikeChocolate;
+        //priceTextView.setText(order);
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_TEXT, order);
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"JustJava@gmail.com"});
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Just Java Order " + userName);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
 
     }
 
